@@ -21,7 +21,7 @@ router.get('/:id', (req, res) => {
 
   actionModel.get(id)
   .then(action => {
-    action === undefined || action.length === 0 ? // how should I handle this?? Returns Obj
+    action === null ?
     res.status(400).json({message: 'Id is not valid'})
     :
     res.status(200).json(action);
@@ -67,7 +67,7 @@ router.put('/:id', (req, res) => {
 
   actionModel.update(id, body)
   .then(action => {
-    action === null ? // returns null when id not found
+    action === null ?
     res.status(400).json({message: 'Id is not valid'})
     :
     res.status(200).json(action);
@@ -84,7 +84,7 @@ router.delete('/:id', (req, res) => {
 
   actionModel.remove(id)
   .then(action => {
-    action === 0 ? // returns 0 when id not found
+    action === 0 ?
     res.status(400).json({message: 'Id is not valid'})
     :
     res.status(200).json(action);

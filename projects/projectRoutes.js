@@ -21,7 +21,7 @@ router.get('/:id', (req, res) => {
 
   projectModel.get(id)
   .then(project => {
-    !project || project.length === 0 || project === 0 ? // how should I handle this?? Returns Obj
+    project === null ?
     res.status(400).json({message: 'Id is not valid'})
     :
     res.status(200).json(project);
@@ -38,7 +38,9 @@ router.get('/:id/actions', (req, res) => {
 
   projectModel.getProjectActions(id)
   .then(project => {
-    project === undefined || project.length === 0 ? // how should I handle this?? Returns Obj
+    console.log(project)
+    // Unable to handle due to what the db returns -> if !project(id) || project(id) with no actions = []
+    project.length === 0 ? 
     res.status(400).json({message: 'Id is not valid'})
     :
     res.status(200).json(project);
@@ -84,7 +86,7 @@ router.put('/:id', (req, res) => {
 
   projectModel.update(id, body)
   .then(project => {
-    project === null ? // returns null when id not found
+    project === null ?
     res.status(400).json({message: 'Id is not valid'})
     :
     res.status(200).json(project);
@@ -101,7 +103,7 @@ router.delete('/:id', (req, res) => {
 
   projectModel.remove(id)
   .then(project => {
-    project === 0 ? // returns 0 when id not found
+    project === 0 ?
     res.status(400).json({message: 'Id is not valid'})
     :
     res.status(200).json(project);
